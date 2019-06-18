@@ -1,14 +1,10 @@
-; load four sectors into RAM;
+; boot payload
 
-    org 7C00h
-_bootblock_start:
-    jmp short _start
-
-_start:
-    hlt
+    org 7e00h
+_payload_start:
 
      
-times 0200h - 2 - ($ - $$)  db 0    ;Zerofill up to 510 bytes
+times 0800h - ($ - $$)  db 0    ;Zerofill up to 2048 bytes
  
     dw 0AA55h       ;Boot Sector signature
-_bootblock_end:
+_payload_end:
