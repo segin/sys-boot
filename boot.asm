@@ -5,6 +5,8 @@ _bootblock_start:
     jmp short _start
 
 _start:
+    cli            ; disable interrupts 
+    
     ; init segment registers
     xor ax, ax
     mov ds, ax
@@ -19,14 +21,17 @@ _start:
     ; set up "default" payload in case payload load fails
     mov byte [7e00h], 0xf4 ; halt opcode, so we don't just crash
 
-    cli           ; disable interrupts 
+    
     ; load payload into RAM 
-    mov ax, 0204h ; call 2, sectors = 4
-    mov bx, 7e00h ; load immediately after this sector 
-    mov cx, 0102h ; Disk 0x00
-    mov dx, 0000h ; CHS 0/0/1
+    mov ax, 0204h  ; call 2, sectors = 4
+    mov bx, 7e00h  ; load immediately after this sector 
+    mov cx, 0102h  ; Disk 0x00
+    mov dx, 0000h  ; CHS 0/0/1
 ;    xor es, es    ; again, 0000:7e00
-    int 13h
+
+    sti            ; enable interrupts temporarily
+    int 13h        ; wack
+    cli
 
     ; jump to payload
     jmp near _payload_start
