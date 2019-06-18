@@ -7,14 +7,15 @@ _payload_start:
 msg:    db "Hey, is this thing on?", 0
 msgend:
     
-    mov bx, msg
+    mov cx, msg
 .loop:    
     mov ah, 0eh
-
+    mov bx, cx
     mov byte al, [bx]
+    mov bx, 0000h
     int 10h
-    inc bx
-    cmp bx, msgend
+    inc cx
+    cmp cx, msgend
     jnz .loop
     hlt
      
