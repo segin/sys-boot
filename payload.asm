@@ -20,5 +20,4 @@ msgend:
      
 times 0800h - ($ - $$)  db 0    ;Zerofill up to 2048 bytes
  
-    dw 0AA55h       ;Boot Sector signature
-_payload_end:
+ _payload_end:
