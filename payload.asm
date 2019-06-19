@@ -2,11 +2,7 @@
 
     org 7e00h
 _payload_start:
-    jmp msgend
-
-msg:    db "Hey, is this thing on?", 0
-msgend:
-    
+   
     mov cx, msg         ; move pointer to cx
 .loop:    
     mov ah, 0eh         ; service call 0x0E, Write Character
@@ -18,7 +14,10 @@ msgend:
     cmp cx, msgend      ; did we reach the end of the message?
     jnz .loop           ; if not, jump back and display next byte
     hlt                 ; stop the CPU.
-     
+
+msg:    db "Hey, is this thing on?", 0
+msgend:
+
 times 0800h - ($ - $$)  db 0    ;Zerofill up to 2048 bytes
  
  _payload_end:
