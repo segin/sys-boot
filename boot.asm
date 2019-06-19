@@ -15,7 +15,7 @@ _start:
     ; set up stack starting at 0x00500 (0050:0000), stopping at 0x07c00
     mov ax, 0050h
     mov ss, ax
-    mov ax, 7800h
+    mov ax, 7700h  ; set high-water mark
     mov sp, ax
 
     ; set up "default" payload in case payload load fails
